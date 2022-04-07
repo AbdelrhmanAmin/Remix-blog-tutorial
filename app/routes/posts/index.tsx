@@ -12,11 +12,10 @@ type LoaderData = {
 };
 
 export const loader = async () => {
-  return json<LoaderData>({
-    posts: await getPosts()
+  return json({
+    posts: await getPosts(),
   });
 };
-
 
 export default function Posts() {
   const { posts } = useLoaderData() as LoaderData;

@@ -1,11 +1,8 @@
+import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-interface IParams {
-  params: { slug: string };
-}
-
-export const loader = async ({ params: { slug } }: IParams) => {
+export const loader: LoaderFunction = async ({ params: { slug } }) => {
   return json({ slug });
 };
 
