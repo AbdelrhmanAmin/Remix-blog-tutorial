@@ -7,6 +7,7 @@ import type { Post } from "~/models/post.server";
 
 type LoaderData = { post: Post };
 export const loader: LoaderFunction = async ({ params }) => {
+  // invariant will throw error if value is false, won't throw if value is true...Cool!
   invariant(params.slug, `params.slug is required`);
   const post = await getPost(params.slug);
   invariant(post, `Post not found: ${params.slug}`);
