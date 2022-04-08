@@ -1,5 +1,13 @@
 import { Link } from "@remix-run/react";
 
+export type ActionData =
+  | {
+      title: null | string;
+      slug: null | string;
+      markdown: null | string;
+    }
+  | undefined;
+
 export default function AdminIndex() {
   return (
     <p>

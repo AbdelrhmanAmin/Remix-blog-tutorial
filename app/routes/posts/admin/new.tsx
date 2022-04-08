@@ -3,14 +3,7 @@ import { Form, useActionData, useTransition } from "@remix-run/react";
 import { createPost } from "~/models/post.server";
 import type { ActionFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
-
-type ActionData =
-  | {
-      title: null | string;
-      slug: null | string;
-      markdown: null | string;
-    }
-  | undefined;
+import type { ActionData } from "./index";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -46,7 +39,7 @@ export default function NewPost() {
   const isCreating = Boolean(transition.submission);
   return (
     <Form method="post">
-      <p>
+      <div>
         <label>
           Post Title:{" "}
           {errors?.title ? (
@@ -54,8 +47,8 @@ export default function NewPost() {
           ) : null}
           <input type="text" name="title" className={inputClassName} />
         </label>
-      </p>
-      <p>
+      </div>
+      <div>
         <label>
           Post Slug:{" "}
           {errors?.slug ? (
@@ -63,8 +56,8 @@ export default function NewPost() {
           ) : null}
           <input type="text" name="slug" className={inputClassName} />
         </label>
-      </p>
-      <p>
+      </div>
+      <div>
         <label htmlFor="markdown">
           Markdown:{" "}
           {errors?.markdown ? (
@@ -78,8 +71,8 @@ export default function NewPost() {
           name="markdown"
           className={`${inputClassName} font-mono`}
         />
-      </p>
-      <p className="text-right">
+      </div>
+      <div className="text-right">
         <button
           type="submit"
           className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400 disabled:bg-blue-300"
@@ -87,7 +80,7 @@ export default function NewPost() {
         >
           {isCreating ? "Creating..." : "Create Post"}
         </button>
-      </p>
+      </div>
     </Form>
   );
 }
