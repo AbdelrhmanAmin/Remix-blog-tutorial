@@ -13,9 +13,6 @@ type ActionData =
   | undefined;
 
 export const action: ActionFunction = async ({ request }) => {
-  // TODO: remove me
-  await new Promise((res) => setTimeout(res, 1000));
-
   const formData = await request.formData();
 
   const title = formData.get("title");
