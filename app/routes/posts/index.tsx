@@ -2,6 +2,7 @@ import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { getPosts } from "~/models/post.server";
 import type { LoaderFunction } from "@remix-run/node";
+import { useOptionalUser } from "~/utils";
 
 type Post = {
   slug: string;
@@ -20,13 +21,15 @@ export const loader: LoaderFunction = async () => {
 
 export default function Posts() {
   const { posts } = useLoaderData() as LoaderData;
-
+  const user = useOptionalUser();
   return (
     <main>
       <h1>Posts</h1>
-      <Link to="admin" className="text-red-600 underline">
-        Admin
-      </Link>
+      {user && (
+        <Link to="admin" className="text-red-600 underline">
+          Admin
+        </Link>
+      )}
       <ul>
         {posts.map((post: Post) => (
           <li key={post.slug}>
