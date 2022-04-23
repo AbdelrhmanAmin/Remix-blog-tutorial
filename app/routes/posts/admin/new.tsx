@@ -4,6 +4,7 @@ import { createPost } from "~/models/post.server";
 import type { ActionFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import type { ActionData } from "./index";
+import { useOptionalUser } from "~/utils";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -11,7 +12,11 @@ export const action: ActionFunction = async ({ request }) => {
   const title = formData.get("title");
   const slug = formData.get("slug");
   const markdown = formData.get("markdown");
+  const email = formData.get("email");
 
+  if (!email) {
+    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+  }
   const errors: ActionData = {
     title: title ? null : "Title is required",
     slug: slug ? null : "Slug is required",
@@ -37,6 +42,7 @@ export default function NewPost() {
   const errors = useActionData();
   const transition = useTransition();
   const isCreating = Boolean(transition.submission);
+  const user = useOptionalUser();
   return (
     <Form method="post">
       <div>
@@ -48,6 +54,9 @@ export default function NewPost() {
           <input type="text" name="title" className={inputClassName} />
         </label>
       </div>
+
+      <input type="hidden" name="email" value={user?.email} />
+
       <div>
         <label>
           Post Slug:{" "}

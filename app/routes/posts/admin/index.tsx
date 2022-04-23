@@ -5,6 +5,7 @@ export type ActionData =
       title: null | string;
       slug: null | string;
       markdown: null | string;
+      email?: null | string;
     }
   | undefined;
 
